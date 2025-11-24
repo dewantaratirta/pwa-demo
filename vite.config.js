@@ -1,7 +1,37 @@
-import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()]
+	plugins: [
+		sveltekit(),
+		VitePWA({
+			devOptions: {
+				enabled: true
+			},
+			manifest: {
+				name: 'Svelte PWA Demo',
+				short_name: 'PWA Demo',
+				theme_color: '#ffffff',
+				icons: [
+					{
+						src: '/pwa-192x192.svg',
+						sizes: '192x192',
+						type: 'image/svg+xml'
+					},
+					{
+						src: '/pwa-512x512.svg',
+						sizes: '512x512',
+						type: 'image/svg+xml'
+					},
+					{
+						src: '/maskable-icon.svg',
+						sizes: '512x512',
+						type: 'image/svg+xml',
+						purpose: 'maskable'
+					}
+				]
+			}
+		})
+	]
 });

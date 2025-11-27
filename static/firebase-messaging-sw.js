@@ -17,8 +17,29 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
+let lastPayloadString = null;
+
 messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    // Custom handling if needed, but let Firebase SDK handle the display
-    // to avoid double notifications when payload has 'notification' key.
+
+    if (payload.data) {
+        // Deduplication: Compare only title and body to ignore other differences (like icon)
+        const currentMessageId = payload.data.title + '|' + payload.data.body;
+
+        if (lastPayloadString === currentMessageId) {
+            console.log('[firebase-messaging-sw.js] Duplicate notification suppressed');
+            return;
+        }
+
+        lastPayloadString = currentMessageId;
+
+        const notificationTitle = payload.data.title;
+        const notificationOptions = {
+            body: payload.data.body,
+            icon: payload.data.icon,
+            data: payload.data
+        };
+
+        self.registration.showNotification(notificationTitle, notificationOptions);
+    }
 });

@@ -16,14 +16,10 @@ export async function POST({ request }) {
         console.log('Sending message to topic: all');
 
         const message = {
-            notification: {
+            data: {
                 title,
-                body
-            },
-            webpush: {
-                notification: {
-                    icon: '/pwa-192x192.svg'
-                }
+                body,
+                icon: '/pwa-192x192.svg'
             },
             topic: 'all'
         };

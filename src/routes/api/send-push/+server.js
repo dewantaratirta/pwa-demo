@@ -18,7 +18,8 @@ export async function POST({ request }) {
         const message = {
             notification: {
                 title,
-                body
+                body,
+                icon: '/pwa-192x192.svg'
             },
             topic: 'all'
         };

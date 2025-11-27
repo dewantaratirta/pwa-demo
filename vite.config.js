@@ -6,8 +6,12 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		VitePWA({
+			strategies: 'injectManifest',
+			srcDir: 'src',
+			filename: 'sw.js',
 			devOptions: {
-				enabled: true
+				enabled: true,
+				type: 'module'
 			},
 			manifest: {
 				name: 'Svelte PWA Demo',

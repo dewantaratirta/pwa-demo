@@ -29,14 +29,6 @@ const messaging = getMessaging(app);
 onBackgroundMessage(messaging, (payload) => {
     console.log('[sw.js] Received background message ', payload);
 
-    if (payload.notification) {
-        const notificationTitle = payload.notification.title;
-        const notificationOptions = {
-            body: payload.notification.body,
-            icon: '/favicon.png', // Ensure you have an icon
-            data: payload.data
-        };
-
-        self.registration.showNotification(notificationTitle, notificationOptions);
-    }
+    // Custom handling if needed, but let Firebase SDK handle the display
+    // to avoid double notifications when payload has 'notification' key.
 });

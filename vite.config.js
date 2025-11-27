@@ -37,5 +37,8 @@ export default defineConfig({
 				]
 			}
 		})
-	]
+	],
+	preview: {
+		allowedHosts: ['pwa.devdew.my.id', 'localhost', '127.0.0.1']
+	}
 });
